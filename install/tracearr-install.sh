@@ -53,7 +53,7 @@ cd /opt/tracearr.build
 $STD pnpm install --frozen-lockfile --force
 $STD pnpm turbo telemetry disable
 $STD pnpm turbo run build --no-daemon --filter=@tracearr/shared --filter=@tracearr/server --filter=@tracearr/web
-mkdir -p /opt/tracearr/{packages/shared,apps/server,apps/web,apps/server/src/db,data/image-cache}
+mkdir -p /opt/tracearr/{packages/shared,apps/server,apps/web,apps/server/src/db}
 cp -rf package.json /opt/tracearr/
 cp -rf pnpm-workspace.yaml /opt/tracearr/
 cp -rf pnpm-lock.yaml /opt/tracearr/
@@ -64,6 +64,7 @@ cp -rf packages/shared/package.json /opt/tracearr/packages/shared/
 cp -rf packages/shared/dist /opt/tracearr/packages/shared/dist
 cp -rf apps/server/src/db/migrations /opt/tracearr/apps/server/src/db/migrations
 cp -rf data /opt/tracearr/data
+mkdir -p /opt/tracearr/data/image-cache
 rm -rf /opt/tracearr.build
 cd /opt/tracearr
 $STD pnpm install --prod --frozen-lockfile --ignore-scripts
