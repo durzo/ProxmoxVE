@@ -45,7 +45,7 @@ function update_script() {
     $STD pnpm turbo telemetry disable
     $STD pnpm turbo run build --no-daemon --filter=@tracearr/shared --filter=@tracearr/server --filter=@tracearr/web
     rm -rf /opt/tracearr
-    mkdir -p /opt/tracearr/{packages/shared,apps/server,apps/web,apps/server/src/db}
+    mkdir -p /opt/tracearr/{packages/shared,apps/server,apps/web,apps/server/src/db,data/image-cache}
     cp -rf package.json /opt/tracearr/
     cp -rf pnpm-workspace.yaml /opt/tracearr/
     cp -rf pnpm-lock.yaml /opt/tracearr/
@@ -58,7 +58,7 @@ function update_script() {
     cp -rf data /opt/tracearr/data
     rm -rf /opt/tracearr.build
     cd /opt/tracearr
-    $STD pnpm install --prod --frozen-lockfile
+    $STD pnpm install --prod --frozen-lockfile --ignore-scripts
     $STD chown -R tracearr:tracearr /opt/tracearr
     msg_ok "Built Tracearr"
 
