@@ -31,7 +31,7 @@ function update_script() {
     exit
   fi
 
-  NODE_VERSION="24" setup_nodejs
+  NODE_VERSION="24" NODE_COREPACK_ENABLE=0 setup_nodejs
 
   msg_info "Updating prestart script"
   cat <<EOF >/data/tracearr/prestart.sh
@@ -110,8 +110,7 @@ EOF
 
     msg_info "Updating pnpm"
     PNPM_VERSION="$(curl -fsSL "https://raw.githubusercontent.com/connorgallopo/Tracearr/refs/heads/main/package.json" | jq -r '.packageManager | split("@")[1]' | cut -d'+' -f1)"
-    export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
-    $STD corepack prepare pnpm@${PNPM_VERSION} --activate
+    $STD npm install -g pnpm@${PNPM_VERSION} || $STD npm install -g --force pnpm@${PNPM_VERSION}
     msg_ok "Updated pnpm"
 
     CLEAN_INSTALL=1 fetch_and_deploy_gh_release "tracearr" "connorgallopo/Tracearr" "tarball" "latest" "/opt/tracearr.build"
